@@ -122,6 +122,19 @@ namespace Boolean.CSharp.Test
         }
 
         [Test]
+        public void UseTooMuchOverdraft()
+        {
+            CheckingAccount account = new CheckingAccount(Branches.Oslo);
+            OverdraftRequest request = account.RequestOverdraft(200);
+
+            request.Approve();
+
+            bool success = account.Withdraw(500);
+            Assert.IsFalse(success);
+            account.GetStatements();
+        }
+
+        [Test]
         public void StatementToPhone()
         {
             CheckingAccount account = new CheckingAccount(Branches.Oslo);
