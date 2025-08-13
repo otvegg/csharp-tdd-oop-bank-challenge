@@ -57,7 +57,7 @@ namespace Boolean.CSharp.Main
             string decimalFormatting = "F";
 
             sb.AppendLine($"{Center("Date", DatePadding)}||{Center("Credit", MoneyPadding)}||{Center("Debit", MoneyPadding)}||{Center("Balance", MoneyPadding)}");
-
+            List<string> statements = new List<string>();
             decimal balance = 0;
             foreach (var transaction in transactions)
             {
@@ -68,8 +68,12 @@ namespace Boolean.CSharp.Main
                 string debit = Center(transaction.Deposit ? "" : value.ToString(decimalFormatting), MoneyPadding);
                 string bal = Center(balance.ToString(decimalFormatting), MoneyPadding);
 
-                sb.AppendLine($"{date}||{credit}||{debit}||{bal}");
+                //sb.AppendLine($"{date}||{credit}||{debit}||{bal}");
+                statements.Add($"{date}||{credit}||{debit}||{bal}");
             }
+
+            statements.Reverse();
+            foreach (var statement in statements) { sb.AppendLine(statement); }
             Console.WriteLine(sb.ToString());
             return sb.ToString();
         }

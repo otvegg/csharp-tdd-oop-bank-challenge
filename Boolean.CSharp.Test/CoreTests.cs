@@ -70,11 +70,13 @@ namespace Boolean.CSharp.Test
             string statement = account.GetStatements();
             string[] statements = statement.Split('\n');
             Assert.That(statements.Count(), Is.EqualTo(5)); // first index is the columns
-            Assert.IsTrue(statements[1].Contains("500"));
+            Assert.IsTrue(statements[1].Contains("250"));
+            Assert.IsTrue(statements[1].Contains("750"));
             Assert.IsTrue(statements[2].Contains("500"));
             Assert.IsTrue(statements[2].Contains("1000"));
-            Assert.IsTrue(statements[3].Contains("250"));
-            Assert.IsTrue(statements[3].Contains("750"));
+            Assert.IsTrue(statements[3].Contains("500"));
+
+
         }
 
         [Test]
