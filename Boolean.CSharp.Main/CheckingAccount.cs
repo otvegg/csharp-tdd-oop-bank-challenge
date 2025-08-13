@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Boolean.CSharp.Main
 {
@@ -21,7 +22,12 @@ namespace Boolean.CSharp.Main
 
         public OverdraftRequest? GetOverdraft() { return Overdraft; }
 
-
+        public bool Withdraw(decimal amount1)
+        {
+            if ((GetBalance() + (Overdraft?.GetStatus() == true ? Overdraft.Allowance : 0)) < amount1) return false;
+            transactions.Add(new Transaction(false, amount1));
+            return true;
+        }
 
     }
 }

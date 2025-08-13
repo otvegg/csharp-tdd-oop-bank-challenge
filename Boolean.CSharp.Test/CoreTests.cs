@@ -1,6 +1,7 @@
 ﻿using Boolean.CSharp.Main;
 using NUnit.Framework;
 using System.ComponentModel;
+using System.Speech.Synthesis;
 
 namespace Boolean.CSharp.Test
 {
@@ -108,6 +109,19 @@ namespace Boolean.CSharp.Test
         }
 
         [Test]
+        public void UseOverdraft()
+        {
+            CheckingAccount account = new CheckingAccount(Branches.Oslo);
+            OverdraftRequest request = account.RequestOverdraft(200);
+
+            request.Approve();
+
+            bool success = account.Withdraw(50);
+            Assert.IsTrue(success);
+            account.GetStatements();
+        }
+
+        [Test]
         public void StatementToPhone()
         {
             CheckingAccount account = new CheckingAccount(Branches.Oslo);
@@ -116,6 +130,13 @@ namespace Boolean.CSharp.Test
             account.Withdraw(250);
             string statement = account.GetStatements();
             string[] statements = statement.Split('\n');
+
+            // not very easy to understand
+            SpeechSynthesizer synthesizer = new SpeechSynthesizer();
+            foreach (string s in statements)
+            {
+                synthesizer.Speak(s);
+            }
         }
     }
 }

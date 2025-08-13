@@ -12,7 +12,7 @@ namespace Boolean.CSharp.Main
     {
         private Guid AccountId = Guid.NewGuid();
         private Branches Branch;
-        private List<Transaction> transactions = new List<Transaction>();
+        private protected List<Transaction> transactions = new List<Transaction>();
         public Account(Branches branch) {
             Branch = branch;
         }
@@ -32,7 +32,7 @@ namespace Boolean.CSharp.Main
         }
 
 
-        public bool Withdraw(decimal amount)
+        public virtual bool Withdraw(decimal amount)
         {
             if (GetBalance() < amount) return false; 
             transactions.Add(new Transaction(false, amount));
